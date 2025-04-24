@@ -1,6 +1,5 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { BlockProperty } from '../../block-properties/models/block-property.model';
-import { Block } from '../../blocks/models/block.model';
 
 interface IPropertyCreateAttr {
   name: string;
