@@ -16,7 +16,7 @@ import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { JwtSelfGuard } from "../guards/jwt-self.guard";
 
 @Controller("users")
-@UseGuards(JwtAuthGuard) // faqat token borligini tekshiradi
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
