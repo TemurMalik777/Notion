@@ -1,10 +1,10 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
-// import { Logger } from "@nestjs/common";
+import { Logger } from "@nestjs/common";
 
 async function start() {
   try {
-    // Logger.overrideLogger(false);//true
+    Logger.overrideLogger(true);//true
     const PORT = process.env.PORT || 3030;
     const app = await NestFactory.create(AppModule);
     await app.listen(PORT, ()=>{

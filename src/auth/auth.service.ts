@@ -18,13 +18,13 @@ export class AuthService {
     private readonly jwtSevice: JwtService
   ) {}
 
-  private async generateToken(user: User){
-      const payload = {
-          id: user.id,
-          email: user.email,
-          is_active: user.is_active
-      }
-      return {token: this.jwtSevice.sign(payload)}
+  private async generateToken(user: User) {
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      is_active: user.is_active,
+    };
+    return { token: this.jwtSevice.sign(payload) };
   }
 
   async signUp(createUserDto: CreateUserDto) {
@@ -53,6 +53,6 @@ export class AuthService {
       throw new UnauthorizedException("Email yoki password noto'g'ri");
     }
 
-    return this.generateToken(user)
+    return this.generateToken(user);
   }
 }

@@ -1,4 +1,5 @@
-import { IsBoolean, IsString } from "class-validator";
+import { IsBoolean, IsString, IsOptional, IsIn } from "class-validator";
+import { UserRole } from "../models/user.model";
 
 export class CreateUserDto {
   @IsString()

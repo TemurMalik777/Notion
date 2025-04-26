@@ -3,48 +3,37 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "./models/user.model";
-import { UsersModule } from "./users.module";
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private readonly usersModule: typeof User) {}
+  constructor(@InjectModel(User) private readonly userModel: typeof User) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.usersModule.create(createUserDto);
+    return this.userModel.create({
+      ...createUserDto,
+    });
   }
 
   findAll() {
-    return this.usersModule.findAll({ include: { all: true } });
+    return this.userModel.findAll({ include: { all: true } });
   }
 
-  async findByEmail(email: string) {
-    const user = await this.usersModule.findOne({
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await this.userModel.findOne({
       where: { email },
-      include: { attributes: ["name"], through: { attributes: [] } },
     });
-    return user?.dataValues;
-  }
-
-  // async findByEmail(email: string) {
-  //   const user = await this.usersModule.findOne({
-  //     where: { email },
-  //     include: {
-  //        attributes: ["name"],
-  //        through: { attributes: [] } },
-  //   });
-  //   return user?.dataValues;
-  // }
-
-  async findOne(id: number) {
-    const user = await this.usersModule.findByPk(id);
     return user;
   }
 
+  async findOne(id: number): Promise<User | null> {
+    return this.userModel.findByPk(id);
+  }
+
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.userModel.update(updateUserDto, { where: { id } });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.userModel.destroy({ where: { id } });
   }
 }

@@ -1,4 +1,6 @@
-import {Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, Model, Table } from "sequelize-typescript";
+
+export type UserRole = "USER" | "ADMIN";
 
 interface UsersCreateAttr {
   first_name: string;
@@ -20,46 +22,27 @@ export class User extends Model<User, UsersCreateAttr> {
   })
   declare id: number;
 
-  @Column({
-    type: DataType.STRING(50),
-  })
+  @Column({ type: DataType.STRING(50) })
   declare first_name: string;
 
-  @Column({
-    type: DataType.STRING(50),
-  })
+  @Column({ type: DataType.STRING(50) })
   declare last_name: string;
 
-  @Column({
-    type: DataType.STRING(50),
-    allowNull: true,
-    unique: true,
-  })
+  @Column({ type: DataType.STRING(50), allowNull: true, unique: true })
   declare email: string;
 
-  @Column({
-    type: DataType.STRING,
-  })
+  @Column({ type: DataType.STRING })
   declare hashed_password: string;
 
-  @Column({
-    type: DataType.STRING,
-  })
+  @Column({ type: DataType.STRING })
   declare photo: string;
 
-  @Column({
-    type: DataType.STRING,
-  })
+  @Column({ type: DataType.STRING })
   declare refresh_token: string;
 
-  @Column({
-    type: DataType.BOOLEAN,
-  })
+  @Column({ type: DataType.BOOLEAN })
   declare activation_link: boolean;
 
-  @Column({
-    type: DataType.BOOLEAN,
-    defaultValue: false,
-  })
-  is_active: boolean;
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  declare is_active: boolean;
 }
