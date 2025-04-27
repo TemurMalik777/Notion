@@ -6,4 +6,5 @@ export class CreateTypeDto {
 
   @IsString()
   description: string;
+  image: string
 }

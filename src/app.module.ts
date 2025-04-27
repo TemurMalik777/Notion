@@ -13,6 +13,14 @@ import { AdminModule } from './admin/admin.module';
 import { UsersModule } from './users/users.module';
 import { Admin } from './admin/models/admin.model';
 import { User } from './users/models/user.model';
+import { FileModule } from './file/file.module';
+import { PermissionsModule } from './permissions/permissions.module';
+import { TeamSpaceMembersModule } from './team_space_members/team_space_members.module';
+import { TeamSpaceModule } from './team_space/team_space.module';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/models/comment.model';
+import { TeamSpace } from './team_space/models/team_space.model';
+import { Permission } from './permissions/models/permission.model';
 
 @Module({
   imports: [
@@ -24,7 +32,7 @@ import { User } from './users/models/user.model';
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [Property, BlockProperty, Type, Block, Admin, User],
+      models: [Property, BlockProperty, Type, Block, Admin, User, Comment, TeamSpace, Permission],
       autoLoadModels: true,
       sync: { alter: true },
       logging: true,
@@ -35,6 +43,11 @@ import { User } from './users/models/user.model';
     BlocksModule,
     AdminModule,
     UsersModule,
+    FileModule,
+    PermissionsModule,
+    TeamSpaceMembersModule,
+    TeamSpaceModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],

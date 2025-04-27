@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { CreateTypeDto } from './dto/create-type.dto';
-import { UpdateTypeDto } from './dto/update-type.dto';
-import { InjectModel } from '@nestjs/sequelize';
-import { Type } from './models/type.model';
+import { Injectable } from "@nestjs/common";
+import { CreateTypeDto } from "./dto/create-type.dto";
+import { UpdateTypeDto } from "./dto/update-type.dto";
+import { InjectModel } from "@nestjs/sequelize";
+import { Type } from "./models/type.model";
+import { FileService } from "../file/file.service";
 
 @Injectable()
 export class TypeService {
   constructor(@InjectModel(Type) private readonly typeModule: typeof Type) {}
-
-  create(createTypeDto: CreateTypeDto) {
-    return this.typeModule.create(createTypeDto);
+  private readonly fileService: FileService;
+  async createType(createTypeDto: CreateTypeDto, image: any): Promise<Type> {
+    const fileName = await this.fileService.saveFile(image)
+    return this.typeModule.create({...createTypeDto, image: fileName});
   }
 
   findAll() {

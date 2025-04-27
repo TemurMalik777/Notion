@@ -1,4 +1,7 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Block } from "../../blocks/models/block.model";
+import { Comment } from "../../comments/models/comment.model";
+import { TeamSpace } from "../../team_space/models/team_space.model";
 
 export type UserRole = "USER" | "ADMIN";
 
@@ -45,4 +48,13 @@ export class User extends Model<User, UsersCreateAttr> {
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   declare is_active: boolean;
+
+  @HasMany(()=>Block)
+  block: Block[]
+
+  @HasMany(()=>Comment)
+  comment: Comment[]
+
+  @HasMany(()=>TeamSpace)
+  teamspace: TeamSpace[]
 }

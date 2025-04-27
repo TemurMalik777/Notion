@@ -22,10 +22,8 @@ export class BlockProperty extends Model<
   BlockProperty,
   IBlockPropertyCreateAttr
 > {
-  @Column({
-    type: DataType.INTEGER,
-  })
   declare block_id: number;
+  
   @Column({
     type: DataType.INTEGER,
   })

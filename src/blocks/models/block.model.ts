@@ -6,10 +6,11 @@ import {
   HasMany,
   Model,
   Table,
-} from 'sequelize-typescript';
-import { Property } from '../../properties/models/property.model';
-import { BlockProperty } from '../../block-properties/models/block-property.model';
-import { Type } from '../../type/models/type.model';
+} from "sequelize-typescript";
+import { BlockProperty } from "../../block-properties/models/block-property.model";
+import { Type } from "../../type/models/type.model";
+import { User } from "../../users/models/user.model";
+import { Comment } from "../../comments/models/comment.model";
 
 interface IBlockCreateAttr {
   type_id: number;
@@ -19,7 +20,7 @@ interface IBlockCreateAttr {
   typeId: number;
 }
 
-@Table({ tableName: 'block' })
+@Table({ tableName: "block" })
 export class Block extends Model<Block, IBlockCreateAttr> {
   @Column({
     type: DataType.INTEGER,
@@ -33,10 +34,14 @@ export class Block extends Model<Block, IBlockCreateAttr> {
   })
   declare type_id: number;
 
+  @ForeignKey(()=>User)
   @Column({
     type: DataType.INTEGER,
   })
   declare created_by: number;
+
+  @BelongsTo(()=>User)
+  user: User[]
 
   @Column({
     type: DataType.INTEGER,
@@ -50,6 +55,12 @@ export class Block extends Model<Block, IBlockCreateAttr> {
 
   @HasMany(() => BlockProperty)
   blockproperty: BlockProperty[];
+
+  @HasMany(() => Block, { foreignKey: "parent" })
+  blocks: Block[];
+
+  @HasMany(()=>Comment)
+  comment: Comment[]
 
   @ForeignKey(() => Type)
   @Column({

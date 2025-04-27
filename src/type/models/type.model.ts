@@ -5,6 +5,7 @@ import { Block } from "../../blocks/models/block.model"
 interface ITypeCreateAttr{
     name: string
     description: string
+    image: string
 }
 
 @Table({tableName: "type"})
@@ -25,6 +26,11 @@ export class Type extends Model<Type, ITypeCreateAttr> {
         type: DataType.STRING
     })
     declare description: string
+
+    @Column({
+        type: DataType.STRING
+    })
+    declare image: string
 
     @HasMany(()=> Block)
     block: Block[]
