@@ -5,9 +5,6 @@ export class CreateBlockDto {
   type_id: number;
 
   @IsNumber()
-  created_by: number;
-
-  @IsNumber()
   parent: number;
 
   @IsNumber()

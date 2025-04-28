@@ -5,34 +5,20 @@ import {
   ForeignKey,
   Model,
   Table,
-} from 'sequelize-typescript';
-import { Property } from '../../properties/models/property.model';
-import { Block } from '../../blocks/models/block.model';
+} from "sequelize-typescript";
+import { Property } from "../../properties/models/property.model";
+import { Block } from "../../blocks/models/block.model";
 
 interface IBlockPropertyCreateAttr {
-  block_id: number;
-  propertis_id: number;
-  value: string;
   propertiesId: number;
   blockId: number;
 }
 
-@Table({ tableName: 'block-property' })
+@Table({ tableName: "block-property" })
 export class BlockProperty extends Model<
   BlockProperty,
   IBlockPropertyCreateAttr
 > {
-  declare block_id: number;
-  
-  @Column({
-    type: DataType.INTEGER,
-  })
-  declare propertis_id: number;
-  @Column({
-    type: DataType.STRING,
-  })
-  declare value: string;
-
   @ForeignKey(() => Property)
   @Column({
     type: DataType.INTEGER,

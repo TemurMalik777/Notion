@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { CreateTypeDto } from "./dto/create-type.dto";
 import { UpdateTypeDto } from "./dto/update-type.dto";
 import { InjectModel } from "@nestjs/sequelize";
@@ -7,11 +7,14 @@ import { FileService } from "../file/file.service";
 
 @Injectable()
 export class TypeService {
-  constructor(@InjectModel(Type) private readonly typeModule: typeof Type) {}
-  private readonly fileService: FileService;
+  constructor(
+    @InjectModel(Type) private readonly typeModule: typeof Type,
+    private readonly fileService: FileService
+  ) {}
+
   async createType(createTypeDto: CreateTypeDto, image: any): Promise<Type> {
-    const fileName = await this.fileService.saveFile(image)
-    return this.typeModule.create({...createTypeDto, image: fileName});
+    const fileName = await this.fileService.saveFile(image);
+    return this.typeModule.create({ ...createTypeDto, image: fileName });
   }
 
   findAll() {
@@ -22,11 +25,20 @@ export class TypeService {
     return this.typeModule.findByPk(id);
   }
 
-  update(id: number, updateTypeDto: UpdateTypeDto) {
-    return `This action updates a #${id} type`;
+  async update(id: number, updateTypeDto: UpdateTypeDto): Promise<Type | null> {
+    try {
+      const type = await this.findOne(id);
+      if (!type) {
+        throw new NotFoundException('Type topilmadi');
+      }
+      return await type.update(updateTypeDto);
+    } catch (error) {
+      throw new InternalServerErrorException('Yangilashda xato');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} type`;
+  async remove(id: number) {
+    await this.typeModule.destroy({where: {id}})
+    return {message: `Foydalanuvchi ochirildi`}
   }
 }

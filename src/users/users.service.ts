@@ -9,20 +9,16 @@ export class UsersService {
   constructor(@InjectModel(User) private readonly userModel: typeof User) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.userModel.create({
-      ...createUserDto,
-    });
+    console.log(createUserDto);
+    return this.userModel.create(createUserDto);
   }
 
   findAll() {
     return this.userModel.findAll({ include: { all: true } });
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = await this.userModel.findOne({
-      where: { email },
-    });
-    return user;
+  findByEmail(email: string) {
+    return this.userModel.findOne({ where: { email } });
   }
 
   async findOne(id: number): Promise<User | null> {

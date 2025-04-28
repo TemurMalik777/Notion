@@ -1,5 +1,4 @@
-import { IsBoolean, IsString, IsOptional, IsIn } from "class-validator";
-import { UserRole } from "../models/user.model";
+import { IsBoolean, IsString } from "class-validator";
 
 export class CreateUserDto {
   @IsString()
@@ -12,16 +11,10 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
-  hashed_password: string;
+  password: string;
 
   @IsString()
   photo: string;
-
-  @IsString()
-  refresh_token: string;
-
-  @IsBoolean()
-  activation_link: boolean;
 
   @IsBoolean()
   is_active: boolean;

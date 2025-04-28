@@ -6,10 +6,7 @@ import { User } from "./models/user.model";
 import { AuthModule } from "../auth/auth.module";
 
 @Module({
-  imports: [
-    SequelizeModule.forFeature([User]),
-    forwardRef(() => AuthModule), // forwardRef qo‘shildi
-  ],
+  imports: [SequelizeModule.forFeature([User]), forwardRef(() => AuthModule)],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService],

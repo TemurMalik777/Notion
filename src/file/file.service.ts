@@ -8,7 +8,7 @@ export class FileService {
   async saveFile(file: any): Promise<string> {
     try {
       const fileName = uuid.v4() + ".jpg";
-      const filePath = path.resolve(__dirname, "..", "static");
+      const filePath = path.resolve(__dirname, "../..", "static");
 
       // Papka mavjud bo‘lmasa, yaratamiz
       if (!fs.existsSync(filePath)) {

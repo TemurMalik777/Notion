@@ -14,7 +14,6 @@ import { Comment } from "../../comments/models/comment.model";
 
 interface IBlockCreateAttr {
   type_id: number;
-  created_by: number;
   parent: number;
   order_index: number;
   typeId: number;

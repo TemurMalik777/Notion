@@ -2,11 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { JwtSelfGuard } from '../guards/jwt-self.guard';
+// import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+// import { JwtSelfGuard } from '../guards/jwt-self.guard';
 
 @Controller('admin')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
@@ -26,7 +26,7 @@ export class AdminController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtSelfGuard)
+  // @UseGuards(JwtSelfGuard)
   update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
     return this.adminService.updateAdminDto(+id, updateAdminDto);
   }

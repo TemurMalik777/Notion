@@ -4,7 +4,7 @@ import { AppModule } from "./app.module";
 
 async function start() {
   try {
-    // Logger.overrideLogger(true);//true
+    // Logger.overrideLogger(false);//true
     const PORT = process.env.PORT || 3030;
     const app = await NestFactory.create(AppModule);
     await app.listen(PORT, ()=>{

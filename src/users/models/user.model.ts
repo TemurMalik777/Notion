@@ -9,10 +9,8 @@ interface UsersCreateAttr {
   first_name: string;
   last_name: string;
   email: string;
-  hashed_password: string;
+  password: string;
   photo: string;
-  refresh_token: string;
-  activation_link: boolean;
   is_active: boolean;
 }
 
@@ -25,36 +23,45 @@ export class User extends Model<User, UsersCreateAttr> {
   })
   declare id: number;
 
-  @Column({ type: DataType.STRING(50) })
+  @Column({
+    type: DataType.STRING(50),
+  })
   declare first_name: string;
 
-  @Column({ type: DataType.STRING(50) })
+  @Column({
+    type: DataType.STRING(50),
+  })
   declare last_name: string;
 
-  @Column({ type: DataType.STRING(50), allowNull: true, unique: true })
+  @Column({
+    type: DataType.STRING(50),
+    allowNull: true,
+    unique: true,
+  })
   declare email: string;
 
-  @Column({ type: DataType.STRING })
-  declare hashed_password: string;
+  @Column({
+    type: DataType.STRING,
+  })
+  declare password: string;
 
-  @Column({ type: DataType.STRING })
+  @Column({
+    type: DataType.STRING,
+  })
   declare photo: string;
 
-  @Column({ type: DataType.STRING })
-  declare refresh_token: string;
-
-  @Column({ type: DataType.BOOLEAN })
-  declare activation_link: boolean;
-
-  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
   declare is_active: boolean;
 
-  @HasMany(()=>Block)
-  block: Block[]
+  @HasMany(() => Block)
+  block: Block[];
 
-  @HasMany(()=>Comment)
-  comment: Comment[]
+  @HasMany(() => Comment)
+  comment: Comment[];
 
-  @HasMany(()=>TeamSpace)
-  teamspace: TeamSpace[]
+  @HasMany(() => TeamSpace)
+  teamspace: TeamSpace[];
 }
