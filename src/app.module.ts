@@ -23,6 +23,11 @@ import { TeamSpace } from "./team_space/models/team_space.model";
 import { Permission } from "./permissions/models/permission.model";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
+import { WorkspaceModule } from './workspace/workspace.module';
+import { WorkspaceMembersModule } from './workspace_members/workspace_members.module';
+import { GroupsModule } from './groups/groups.module';
+import { DevicesModule } from './devices/devices.module';
+import { GroupMembersModule } from './group_members/group_members.module';
 
 @Module({
   imports: [
@@ -63,6 +68,11 @@ import { join } from "path";
     TeamSpaceMembersModule,
     TeamSpaceModule,
     CommentsModule,
+    WorkspaceModule,
+    WorkspaceMembersModule,
+    GroupsModule,
+    DevicesModule,
+    GroupMembersModule,
   ],
   controllers: [],
   providers: [],
